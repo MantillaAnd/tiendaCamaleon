@@ -1,3 +1,122 @@
+// --- Productos de ejemplo para vista previa ---
+const productosEjemplo = [
+  {
+    nombre: 'Paquete de Papas',
+    precio: 25,
+    imagen: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
+    descripcion: 'Bolsa de papas fritas clásicas 45g',
+    cantidad: 20
+  },
+  {
+    nombre: 'Paquete de Doritos',
+    precio: 28,
+    imagen: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
+    descripcion: 'Bolsa de Doritos Nacho 50g',
+    cantidad: 15
+  },
+  {
+    nombre: 'Paquete de Galletas',
+    precio: 18,
+    imagen: 'https://images.unsplash.com/photo-1505250469679-203ad9ced0cb?auto=format&fit=crop&w=400&q=80',
+    descripcion: 'Paquete de galletas de chocolate 6 piezas',
+    cantidad: 30
+  }
+];
+
+function renderProductosEjemplo() {
+  const cont = document.getElementById('productos-ejemplo');
+  if (!cont) return;
+  cont.innerHTML = '';
+  productosEjemplo.forEach(prod => {
+    const div = document.createElement('div');
+    div.className = 'producto-venta';
+    div.innerHTML = `
+      <img src="${prod.imagen}" alt="${prod.nombre}" style="width:100%;max-width:160px;">
+      <strong>${prod.nombre}</strong>
+      <span>$${prod.precio}</span>
+      <p style="font-size:0.95em;color:#666;">${prod.descripcion}</p>
+      <span style="font-size:0.9em;color:#888;">Stock: ${prod.cantidad}</span>
+    `;
+    cont.appendChild(div);
+  });
+}
+
+// Mostrar productos de ejemplo si no hay productos reales
+function renderProductosVenta() {
+  const productos = JSON.parse(localStorage.getItem('productos') || '[]');
+  const cont = document.getElementById('productos-venta');
+  cont.innerHTML = '';
+  if (productos.length === 0) {
+    document.getElementById('productos-ejemplo').style.display = '';
+    renderProductosEjemplo();
+    return;
+  } else {
+    document.getElementById('productos-ejemplo').style.display = 'none';
+  }
+  productos.forEach((prod, idx) => {
+    // ...código existente para renderizar productos reales...
+    const div = document.createElement('div');
+    div.className = 'producto-venta';
+    div.innerHTML = `
+      <img src="${prod.imagen}" alt="${prod.nombre}" style="width:100%;max-width:160px;">
+      <strong>${prod.nombre}</strong>
+      <span>$${prod.precio}</span>
+      <p style="font-size:0.95em;color:#666;">${prod.descripcion || ''}</p>
+      <span style="font-size:0.9em;color:#888;">Stock: ${prod.cantidad || 0}</span>
+      <input type="number" min="1" max="${prod.cantidad || 1}" value="1" id="cantidad-${idx}" style="margin-top:0.5em;">
+      <button onclick="agregarAlCarrito(${idx})">Agregar al carrito</button>
+    `;
+    cont.appendChild(div);
+  });
+}
+
+// Llamar a renderProductosVenta al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+  renderProductosVenta();
+});
+    // Resaltar botón activo
+    const menuBtns = [btnMenuProductos, btnMenuUsuarios, btnMenuPersonalizacion];
+    function activarBtnActivo(btnActivo) {
+        menuBtns.forEach(btn => btn.classList.remove('active'));
+        btnActivo.classList.add('active');
+    }
+    btnMenuProductos.addEventListener('click', function() {
+        activarBtnActivo(btnMenuProductos);
+    });
+    btnMenuUsuarios.addEventListener('click', function() {
+        activarBtnActivo(btnMenuUsuarios);
+    });
+    btnMenuPersonalizacion.addEventListener('click', function() {
+        activarBtnActivo(btnMenuPersonalizacion);
+    });
+    // Por defecto, activar productos
+    activarBtnActivo(btnMenuProductos);
+// --- Lógica de menú de la consola admin ---
+document.addEventListener('DOMContentLoaded', function() {
+    const btnMenuProductos = document.getElementById('btnMenuProductos');
+    const btnMenuUsuarios = document.getElementById('btnMenuUsuarios');
+    const btnMenuPersonalizacion = document.getElementById('btnMenuPersonalizacion');
+    const adminProductos = document.getElementById('adminProductos');
+    const adminUsuarios = document.getElementById('adminUsuarios');
+    const adminPersonalizacion = document.getElementById('adminPersonalizacion');
+    if (btnMenuProductos && btnMenuUsuarios && btnMenuPersonalizacion) {
+        btnMenuProductos.addEventListener('click', function() {
+            adminProductos.style.display = '';
+            adminUsuarios.style.display = 'none';
+            adminPersonalizacion.style.display = 'none';
+        });
+        btnMenuUsuarios.addEventListener('click', function() {
+            adminProductos.style.display = 'none';
+            adminUsuarios.style.display = '';
+            adminPersonalizacion.style.display = 'none';
+        });
+        btnMenuPersonalizacion.addEventListener('click', function() {
+            adminProductos.style.display = 'none';
+            adminUsuarios.style.display = 'none';
+            adminPersonalizacion.style.display = '';
+        });
+    }
+});
 // Hacer que el nombre de la página recargue la vista principal
 document.getElementById('logoTienda').addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });

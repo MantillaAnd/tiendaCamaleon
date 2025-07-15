@@ -44,54 +44,63 @@
             </section>
             <section id="admin-consola" style="display:none;">
                 <h2>Consola Administradora</h2>
-                <div class="admin-secciones">
-                    <div class="admin-bloque">
-                        <h3>Gestión de Productos</h3>
-                        <form id="formProducto">
-                            <input type="text" id="nombreProducto" placeholder="Nombre del producto" required>
-                            <input type="number" id="precioProducto" placeholder="Precio" required min="0">
-                            <input type="url" id="imagenProducto" placeholder="URL de la imagen" required>
-                            <button type="submit">Agregar/Modificar Producto</button>
-                        </form>
-                        <div style="margin:1em 0;">
-                            <label><strong>Carga masiva de productos (CSV):</strong>
-                                <input type="file" id="cargaMasiva" accept=".csv">
-                            </label>
-                            <small>Formato: nombre,cantidad,precio,descripcion,imagen</small>
+                <div style="display:flex; gap:2em; align-items:flex-start;">
+                    <nav id="adminMenu" style="min-width:180px;">
+                        <ul style="list-style:none; padding:0; margin:0;">
+                            <li><button type="button" class="admin-menu-btn" id="btnMenuProductos">Productos</button></li>
+                            <li><button type="button" class="admin-menu-btn" id="btnMenuUsuarios">Usuarios</button></li>
+                            <li><button type="button" class="admin-menu-btn" id="btnMenuPersonalizacion">Personalización</button></li>
+                        </ul>
+                    </nav>
+                    <div style="flex:1;">
+                        <div id="adminProductos" class="admin-bloque">
+                            <h3>Gestión de Productos</h3>
+                            <form id="formProducto">
+                                <input type="text" id="nombreProducto" placeholder="Nombre del producto" required>
+                                <input type="number" id="precioProducto" placeholder="Precio" required min="0">
+                                <input type="url" id="imagenProducto" placeholder="URL de la imagen" required>
+                                <button type="submit">Agregar/Modificar Producto</button>
+                            </form>
+                            <div style="margin:1em 0;">
+                                <label><strong>Carga masiva de productos (CSV):</strong>
+                                    <input type="file" id="cargaMasiva" accept=".csv">
+                                </label>
+                                <small>Formato: nombre,cantidad,precio,descripcion,imagen</small>
+                            </div>
+                            <div id="listaProductos"></div>
                         </div>
-                        <div id="listaProductos"></div>
-                    </div>
-                    <div class="admin-bloque">
-                        <h3>Gestión de Usuarios</h3>
-                        <form id="formRegistro">
-                            <input type="text" id="nombreUsuario" placeholder="Nombre de usuario" required>
-                            <input type="email" id="emailUsuario" placeholder="Correo electrónico" required>
-                            <input type="password" id="passwordUsuario" placeholder="Contraseña" required>
-                            <button type="submit">Registrar</button>
-                        </form>
-                        <div id="mensajeRegistro"></div>
-                        <div id="listaUsuarios"></div>
-                    </div>
-                    <div class="admin-bloque">
-                        <h3>Personalización del Sitio</h3>
-                        <form id="formPersonalizacion">
-                            <label>Color principal: <input type="color" id="colorPrincipal" value="#4CAF50"></label>
-                            <label>Color de fondo: <input type="color" id="colorFondo" value="#f4f4f4"></label>
-                            <label>Color de botones: <input type="color" id="colorBoton" value="#388E3C"></label>
-                            <br><br>
-                            <label>Imagen de fondo: <input type="url" id="urlFondo" placeholder="URL de imagen"></label>
-                            <br><br>
-                            <label>Información adicional:<br>
-                                <textarea id="infoAdicional" rows="3" style="width:100%;"></textarea>
-                            </label>
-                            <br>
-                            <label>Música de fondo (URL MP3): <input type="url" id="urlMusica" placeholder="URL de archivo MP3"></label>
-                            <br><br>
-                            <button type="submit">Aplicar cambios</button>
-                            <button type="button" id="guardarConfig" style="margin-left:1em;">Guardar configuración</button>
-                        </form>
-                        <div id="infoAdicionalVista" style="margin:1em 0;"></div>
-                        <audio id="musicaFondo" controls loop style="display:none; margin-bottom:1em;"></audio>
+                        <div id="adminUsuarios" class="admin-bloque" style="display:none;">
+                            <h3>Gestión de Usuarios</h3>
+                            <form id="formRegistro">
+                                <input type="text" id="nombreUsuario" placeholder="Nombre de usuario" required>
+                                <input type="email" id="emailUsuario" placeholder="Correo electrónico" required>
+                                <input type="password" id="passwordUsuario" placeholder="Contraseña" required>
+                                <button type="submit">Registrar</button>
+                            </form>
+                            <div id="mensajeRegistro"></div>
+                            <div id="listaUsuarios"></div>
+                        </div>
+                        <div id="adminPersonalizacion" class="admin-bloque" style="display:none;">
+                            <h3>Personalización del Sitio</h3>
+                            <form id="formPersonalizacion">
+                                <label>Color principal: <input type="color" id="colorPrincipal" value="#4CAF50"></label>
+                                <label>Color de fondo: <input type="color" id="colorFondo" value="#f4f4f4"></label>
+                                <label>Color de botones: <input type="color" id="colorBoton" value="#388E3C"></label>
+                                <br><br>
+                                <label>Imagen de fondo: <input type="url" id="urlFondo" placeholder="URL de imagen"></label>
+                                <br><br>
+                                <label>Información adicional:<br>
+                                    <textarea id="infoAdicional" rows="3" style="width:100%;"></textarea>
+                                </label>
+                                <br>
+                                <label>Música de fondo (URL MP3): <input type="url" id="urlMusica" placeholder="URL de archivo MP3"></label>
+                                <br><br>
+                                <button type="submit">Aplicar cambios</button>
+                                <button type="button" id="guardarConfig" style="margin-left:1em;">Guardar configuración</button>
+                            </form>
+                            <div id="infoAdicionalVista" style="margin:1em 0;"></div>
+                            <audio id="musicaFondo" controls loop style="display:none; margin-bottom:1em;"></audio>
+                        </div>
                     </div>
                 </div>
                 <button id="cerrarAdmin">Cerrar sesión admin</button>
